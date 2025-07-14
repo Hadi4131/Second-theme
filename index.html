@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Turing Nexus - AI Ethics & Governance</title>
+    
+    <!-- Google Fonts for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. Global Styles & Variables --- */
+        :root {
+            --primary-blue: #0a4cda;
+            --dark-navy: #051d49;
+            --text-color: #343a40;
+            --light-gray: #f8f9fa;
+            --border-color: #dee2e6;
+            --white: #ffffff;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--white);
+            color: var(--text-color);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--dark-navy);
+            font-weight: 700;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.2; }
+        h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        a:hover {
+            opacity: 0.8;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+
+        .btn:hover {
+            opacity: 1; /* Override default link hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(10, 76, 218, 0.3);
+        }
+
+        /* --- 2. Header & Navigation --- */
+        .header {
+            background-color: var(--white);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-navy);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-nav a {
+            color: var(--text-color);
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* --- 3. Hero Section --- */
+        .hero {
+            background-color: var(--light-gray);
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            color: #555;
+        }
+
+        /* --- 4. Content Grid (Articles & Topics) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-image-placeholder {
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-style: italic;
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(10, 76, 218, 0.1);
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--dark-navy);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-excerpt {
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: auto;
+        }
+        
+        /* --- 5. About Section --- */
+        .about-section {
+            background-color: var(--dark-navy);
+            color: var(--white);
+        }
+        
+        .about-section h2 {
+            color: var(--white);
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+        
+        .about-values .value-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary-blue);
+        }
+        
+        .about-values h4 {
+            font-family: var(--font-heading);
+            margin-bottom: 5px;
+        }
+        
+        /* --- 6. Newsletter & Footer --- */
+        .newsletter {
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .footer {
+            background-color: var(--dark-navy);
+            color: #adb5bd;
+            padding: 60px 0 20px 0;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about p {
+            margin-top: 1rem;
+            max-width: 300px;
+        }
+        
+        .footer-links h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #495057;
+            padding-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 7. Responsive Design --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2rem; }
+            .main-nav { display: none; } /* Hiding nav for simplicity, a real site would use a hamburger menu */
+            .about-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            section { padding: 60px 0; }
+            .grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">The Turing Nexus</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#">Policy</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="btn">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Guiding the Future of Artificial Intelligence</h1>
+                <p>The Turing Nexus is a global, non-partisan institute dedicated to ensuring the development of safe, ethical, and equitable AI for the benefit of all humanity.</p>
+                <a href="#research" class="btn">Explore Our Research</a>
+            </div>
+        </section>
+
+        <!-- Featured Research Section -->
+        <section id="research">
+            <div class="container">
+                <h2>Featured Research</h2>
+                <div class="grid">
+                    <!-- Article Card 1 -->
+                    <article class="card">
+                        <div class="card-image-placeholder">Article Image</div>
+                        <div class="card-content">
+                            <span class="card-tag">AI Regulation</span>
+                            <h3 class="card-title">A Blueprint for Global AI Governance</h3>
+                            <p class="card-excerpt">Analyzing the EU AI Act and its implications for international policy standards and corporate compliance.</p>
+                            <div class="card-meta">By Dr. Eleanor Vance</div>
+                        </div>
+                    </article>
+                    <!-- Article Card 2 -->
+                    <article class="card">
+                        <div class="card-image-placeholder">Article Image</div>
+                        <div class="card-content">
+                            <span class="card-tag">Economic Impact</span>
+                            <h3 class="card-title">The LLM Revolution: Job Creation & Disruption</h3>
+                            <p class="card-excerpt">A quantitative study on the short-term effects of large language models on the knowledge worker economy.</p>
+                            <div class="card-meta">By Samuel Chen & Dr. Lena Petrova</div>
+                        </div>
+                    </article>
+                    <!-- Article Card 3 -->
+                    <article class="card">
+                        <div class="card-image-placeholder">Article Image</div>
+                        <div class="card-content">
+                            <span class="card-tag">AI Ethics</span>
+                            <h3 class="card-title">Mitigating Bias in Algorithmic Systems</h3>
+                            <p class="card-excerpt">We propose a novel framework for continuous auditing and real-time bias detection in high-stakes AI models.</p>
+                            <div class="card-meta">By Dr. Aris Thorne</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>Advancing Ideas That Matter</h2>
+                        <p>Our mission is to provide independent, data-driven analysis to policymakers, industry leaders, and the public. We tackle the most complex challenges in AI, from national security implications to the future of work, fostering a global dialogue built on evidence and ethical principles.</p>
+                        <a href="#" class="btn">Learn More About Us</a>
+                    </div>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <h4>Rigorous Research</h4>
+                            <p>Upholding the highest standards of scientific and ethical integrity in all our publications.</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>Independent Analysis</h4>
+                            <p>Providing non-partisan insights free from commercial or political influence.</p>
+                        </div>
+                        <div class="value-item">
+                            <h4>Global Collaboration</h4>
+                            <p>Building bridges between researchers, governments, and civil society worldwide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Topics Section -->
+        <section>
+            <div class="container">
+                <h2>Key Research Areas</h2>
+                <div class="grid">
+                    <!-- Topic Card 1 -->
+                    <article class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">AI Safety & Alignment</h3>
+                            <p class="card-excerpt">Developing technical and policy solutions to ensure advanced AI systems are robust, reliable, and aligned with human values.</p>
+                        </div>
+                    </article>
+                    <!-- Topic Card 2 -->
+                    <article class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">Data Privacy & Security</h3>
+                            <p class="card-excerpt">Examining the intersection of large-scale data collection, AI, and individual rights to privacy and security.</p>
+                        </div>
+                    </article>
+                    <!-- Topic Card 3 -->
+                    <article class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">AI & The Workforce</h3>
+                            <p class="card-excerpt">Analyzing the impact of automation and AI on labor markets, skills demand, and economic inequality.</p>
+                        </div>
+                    </article>
+                    <!-- Topic Card 4 -->
+                    <article class="card">
+                        <div class="card-content">
+                            <h3 class="card-title">AI & National Security</h3>
+                            <p class="card-excerpt">Assessing the role of AI in defense, autonomous weaponry, and the changing landscape of global stability.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Newsletter Signup Section -->
+        <section class="newsletter">
+            <div class="container">
+                <h2>Stay Ahead of the Curve</h2>
+                <p style="max-width: 600px; margin: 0 auto 2rem auto; color: #555;">Subscribe to "The Nexus Brief," our weekly newsletter on the latest in AI policy and research.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address">
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a href="#" class="logo" style="color: var(--white);">The Turing Nexus</a>
+                    <p>A non-profit organization dedicated to independent research and policy solutions for artificial intelligence.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#">Research Areas</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Publications</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Our People</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="#">X (Twitter)</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 The Turing Nexus. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
